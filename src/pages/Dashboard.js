@@ -10,22 +10,30 @@ function Dashboard() {
   );
 
   // ✅ function to fetch latest data
-  const fetchData = () => {
-    if (!user) return;
+  useEffect(() => {
+  if (!user) return;
 
-    // 🔥 fetch updated user (balance)
-    axios.get(`https://bank-backend-production-92f5.up.railway.app/user/get/${user.id}`)
-      .then(res => {
-        setUser(res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
-      });
+  const fetchData = async () => {
+    try {
+      const userRes = await axios.get(
+        `https://bank-backend-production-92f5.up.railway.app/user/get/${user.id}`
+      );
 
-    // 🔥 fetch transactions
-    axios.get(`https://bank-backend-production-92f5.up.railway.app/transaction/history/${user.id}`)
-      .then(res => setTransactions(res.data))
-      .catch(err => console.error(err));
+      setUser(userRes.data);
+      localStorage.setItem("user", JSON.stringify(userRes.data));
+
+      const txRes = await axios.get(
+        `https://bank-backend-production-92f5.up.railway.app/transaction/history/${user.id}`
+      );
+
+      setTransactions(txRes.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
+  fetchData();
+}, [user]);
   // ✅ load + auto refresh
   useEffect(() => {
     fetchData();
