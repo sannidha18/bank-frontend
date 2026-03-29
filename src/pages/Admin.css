@@ -1,0 +1,119 @@
+/* ===== PAGE ===== */
+.admin-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0f1c, #0f172a);
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 40px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+}
+
+.navbar h2 {
+  color: #a78bfa;
+  font-size: 22px;
+}
+
+/* NAV BUTTONS */
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links button {
+  background: transparent;
+  border: 1px solid #7c3aed;
+  color: #7c3aed;
+
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-links button:hover {
+  background: #7c3aed;
+  color: white;
+}
+
+/* ACTIVE TAB */
+.active {
+  background: #7c3aed !important;
+  color: white !important;
+}
+
+/* LOGOUT */
+.logout-btn {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.logout-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== MAIN CONTENT ===== */
+.admin-main {
+  padding: 40px 60px;   /* more breathing space */
+}
+
+/* ===== SECTION ===== */
+.section {
+  margin-top: 30px;
+}
+
+.section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+}
+/* ===== TABLE ===== */
+.table {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 10px;
+
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ===== ROW ===== */
+.row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 12px;
+  border-bottom: 1px solid #334155;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+/* ===== SCROLLBAR ===== */
+.table::-webkit-scrollbar {
+  width: 5px;
+}
+
+.table::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 10px;
+}
+
+/* ===== CHART ===== */
+.chart-box {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 10px;
+}
