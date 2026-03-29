@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../components/Header";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
 function Transactions() {

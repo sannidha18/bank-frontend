@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import Header from "../components/Header";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 
 function Chatbot() {
   const [message, setMessage] = useState("");
