@@ -9,38 +9,36 @@ function Dashboard() {
     JSON.parse(localStorage.getItem("user"))
   );
 
-  // ✅ function to fetch latest data
   useEffect(() => {
-  if (!user) return;
+    if (!user) return;
 
-  const fetchData = async () => {
-    try {
-      const userRes = await axios.get(
-        `https://bank-backend-production-92f5.up.railway.app/user/get/${user.id}`
-      );
+    const fetchData = async () => {
+      try {
+        const userRes = await axios.get(
+          `https://bank-backend-production-92f5.up.railway.app/user/get/${user.id}`
+        );
 
-      setUser(userRes.data);
-      localStorage.setItem("user", JSON.stringify(userRes.data));
+        setUser(userRes.data);
+        localStorage.setItem("user", JSON.stringify(userRes.data));
 
-      const txRes = await axios.get(
-        `https://bank-backend-production-92f5.up.railway.app/transaction/history/${user.id}`
-      );
+        const txRes = await axios.get(
+          `https://bank-backend-production-92f5.up.railway.app/transaction/history/${user.id}`
+        );
 
-      setTransactions(txRes.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+        setTransactions(txRes.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  fetchData();
-}, [user]);
-  // ✅ load + auto refresh
-  useEffect(() => {
+    // first load
     fetchData();
 
-    const interval = setInterval(fetchData, 3000); // every 3 sec
+    // auto refresh every 3 sec
+    const interval = setInterval(fetchData, 3000);
+
     return () => clearInterval(interval);
-  }, [fetchData]);
+  }, [user?.id]);  // ✅ FIXED dependency
 
   if (!user) {
     return <h2>Please login first</h2>;
