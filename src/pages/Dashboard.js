@@ -5,40 +5,35 @@ import Navbar from "../components/Navbar";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
-  const [user, setUser] = useState(
+  const [user] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
 
-    const fetchData = async () => {
+    const fetchTransactions = async () => {
       try {
-        const userRes = await axios.get(
-          `https://bank-backend-production-92f5.up.railway.app/user/get/${user.id}`
-        );
-
-        setUser(userRes.data);
-        localStorage.setItem("user", JSON.stringify(userRes.data));
-
-        const txRes = await axios.get(
+        const res = await axios.get(
           `https://bank-backend-production-92f5.up.railway.app/transaction/history/${user.id}`
         );
 
-        setTransactions(txRes.data);
+        setTransactions(res.data);
+
       } catch (err) {
-        console.error(err);
+        console.error("Transaction error:", err);
       }
     };
 
-    // first load
-    fetchData();
+    // first call
+    fetchTransactions();
 
-    // auto refresh every 3 sec
-    const interval = setInterval(fetchData, 3000);
+    // refresh every 5 sec
+    const interval = setInterval(fetchTransactions, 5000);
 
     return () => clearInterval(interval);
-  }, [user?.id]);  // ✅ FIXED dependency
+
+  }, [user?.id]);
 
   if (!user) {
     return <h2>Please login first</h2>;
@@ -51,7 +46,7 @@ function Dashboard() {
 
       {/* User Info */}
       <div className="card">
-        <h2>👋 Hello, {user.username}</h2>
+        <h2>👋 Hello, {user.username || "User"}</h2>
         <p><b>Balance:</b> ₹{user.balance}</p>
       </div>
 
@@ -64,7 +59,7 @@ function Dashboard() {
         ) : (
           <div className="txn-list">
             {[...transactions].reverse().map((t, index) => {
-              const isCredit = t.type.includes("Received");
+              const isCredit = t.type?.includes("Received");
 
               return (
                 <div
